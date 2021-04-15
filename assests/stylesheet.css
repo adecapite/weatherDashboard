@@ -1,40 +1,16 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.navbar-brand {
+    font-size: 36px;
 }
 
-body{
-    font-family: 'Raleway', sans-serif;
-}
-.input{
-    text-align: center;
-    margin: 100px 0;
-}
-
-input[type="text"]{
-    height: 50px;
-    width: 600px;
-    background: #e7e7e7;
-    font-family: 'Raleway', sans-serif;
+.search-header {
+    font-size: 24px;
     font-weight: bold;
-    font-size: 20px;
-    border: none;
-    border-radius: 2px;
-    padding: 10px 10px;
 }
 
-input[type= "submit"]{
-    height: 50px;
-    width: 100px;
-    background: #e7e7e7;
-    font-family: 'Raleway', sans-serif;
-    font-weight: bold;
-    font-size: 20px;
-    border: none;
-    border-radius: 2px;
+.city-name {
+    font-size: 30px;
 }
 
-.display{
-    text-align: center;
+.forecast-date {
+    font-size: 18px;
 }
