@@ -16,7 +16,7 @@ function startApp()
     console.log(searchHistory);
 
 function getWeather(cityName) {
-    //  Using saved city name, execute a current condition get request from open weather map api
+    // Uses the saved city name, combines it with the API to retrieve the information from OpenWeather
             let queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + APIKey;
             fetch(queryURL)
             .then(function(response){
@@ -24,21 +24,24 @@ function getWeather(cityName) {
             })
             .then(function(response){
                 console.log(response);
-    //  Parse response to display current conditions
-            //  Method for using "date" objects obtained from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+
+                //Gathers information for today's date
                 const currentDate = new Date(response.dt*1000);
                 console.log(currentDate);
                 const day = currentDate.getDate();
                 const month = currentDate.getMonth() + 1;
                 const year = currentDate.getFullYear();
                 nameEl.innerHTML = response.name + " (" + month + "/" + day + "/" + year + ") ";
+                //sets the icon for the weather conditions ie. rainy, sunny, cloudy
                 let weatherPic = response.weather[0].icon;
                 currentPicEl.setAttribute("src",  "https://openweathermap.org/img/wn/" + weatherPic + "@2x.png");
                 currentPicEl.setAttribute("alt",response.weather[0].description);
-                currentTempEl.innerHTML = "Temperature: " + k2f(response.main.temp) + " &#176F";
+                //Formats how the information will be displayed place the right symbols (percentage sign, MPH for windspeed)
+                currentTempEl.innerHTML = "Temperature: " + response.main.temp + " F";
                 currentHumidityEl.innerHTML = "Humidity: " + response.main.humidity + "%";
                 currentWindEl.innerHTML = "Wind Speed: " + response.wind.speed + " MPH";
-            let lat = response.coord.lat;
+            //variables for latitude and longitude, then uses that informaiton to get the UV index and then appened to the weather forecasr
+                let lat = response.coord.lat;
             let lon = response.coord.lon;
             let UVQueryURL = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&cnt=1";
             axios.get(UVQueryURL)
@@ -49,7 +52,7 @@ function getWeather(cityName) {
                 currentUVEl.innerHTML = "UV Index: ";
                 currentUVEl.append(UVIndex);
             });
-    //  Using saved city name, execute a 5-day forecast get request from open weather map api
+    //Uses the saved city infromation to retieve info
             let cityID = response.id;
             let forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?id=" + cityID + "&appid=" + APIKey;
             axios.get(forecastQueryURL)
@@ -82,7 +85,7 @@ function getWeather(cityName) {
                 })
             });  
         }
-    
+    //Search button. Start function to retrieve info from OpenWeather, and then stores the searched city into local storage as SearchHistory
         searchEl.addEventListener("click",function() {
             const searchTerm = inputEl.value;
             getWeather(searchTerm);
@@ -90,7 +93,7 @@ function getWeather(cityName) {
             localStorage.setItem("search",JSON.stringify(searchHistory));
             renderSearchHistory();
         })
-    
+    //button to clear recent search history
         clearEl.addEventListener("click",function() {
             searchHistory = [];
             renderSearchHistory();
@@ -99,12 +102,12 @@ function getWeather(cityName) {
         function k2f(K) {
             return Math.floor((K - 273.15) *1.8 +32);
         }
-    
+        //Takes the recent cities searched for, takes them from local storage and appends them on a created list.
         function renderSearchHistory() {
             historyEl.innerHTML = "";
             for (let i=0; i<searchHistory.length; i++) {
                 const historyItem = document.createElement("input");
-                // <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com"></input>
+                
                 historyItem.setAttribute("type","text");
                 historyItem.setAttribute("readonly",true);
                 historyItem.setAttribute("class", "form-control d-block bg-white");
@@ -122,8 +125,7 @@ function getWeather(cityName) {
         }
     
     
-    //  Save user's search requests and display them underneath search form
-    //  When page loads, automatically generate current conditions and 5-day forecast for the last city the user searched for
+   
     
     }
     startApp();
