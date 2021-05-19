@@ -1,4 +1,5 @@
 # weatherDashboard
+Site deployed here: https://adecapite.github.io/weatherDashboard/
 
 Enter the name of the city you'd like to see the weather forecast for.
 <img width="1748" alt="Screen Shot 2021-04-17 at 1 50 05 PM" src="https://user-images.githubusercontent.com/77472956/118836332-bf0cfc00-b891-11eb-9316-89bfd665fa13.png">
